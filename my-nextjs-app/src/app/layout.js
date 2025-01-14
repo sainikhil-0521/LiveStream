@@ -1,6 +1,9 @@
 
 import "./globals.css";
-import NavBar from "@/components/NavBar";
+import App from "@/components/NavBar";
+import SideNavBar from "@/components/SideNavBar";
+import { Toaster } from "react-hot-toast";
+import UserProvider from "@/context/UserProvider";
 
 export const metadata = {
   title: "Create Next App",
@@ -11,8 +14,14 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <NavBar />
-        {children}
+        <UserProvider>
+          <Toaster />
+          <App />
+          <div className="flex h-screen">
+            <SideNavBar />
+            <main className="flex-1 overflow-auto">{children}</main>
+          </div>
+        </UserProvider>
       </body>
     </html>
   );
