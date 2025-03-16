@@ -54,13 +54,13 @@ export default function SideNavBar({ Children }) {
           {/* Sidebar Links */}
           <div className="flex flex-col">
             {[
-              { name: "Start Stream", icon: "/play.png" },
-              { name: "Followers", icon: "/followers.png" },
-              { name: "Following", icon: "/following.png" },
+              { name: "Start Stream", icon: "/play.png", href: "/stream" },
+              { name: "Followers", icon: "/followers.png", href: "/stream" },
+              { name: "Following", icon: "/following.png", href: "/stream" },
             ].map((link) => (
               <a
                 key={link.name}
-                href="#"
+                href={link.href}
                 className={`flex items-center gap-3 p-4 transition-all hover:bg-gray-100 ${
                   activeLink === link.name ? "bg-[#FBFBFB]" : ""
                 }`}

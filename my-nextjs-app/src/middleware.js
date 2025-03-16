@@ -15,8 +15,25 @@ export async function middleware(req) {
       method: "POST",
       headers: req.headers,
     });
+    const NextCustomResponse = NextResponse.next();
+    const backendHeaders = response.headers;
+     const setCookieHeader = response.headers["set-cookie"];
+     if (setCookieHeader) {
+       const cookies = Array.isArray(setCookieHeader)
+         ? setCookieHeader
+         : [setCookieHeader];
+
+       cookies.forEach((cookie) => {
+         const [cookieName, cookieValue] = cookie.split(";")[0].split("=");
+         NextCustomResponse.cookies.set(cookieName, cookieValue, {
+           path: "/",
+          //  httpOnly: true,
+           secure: process.env.NODE_ENV === "production", // Only secure in production
+         });
+       });
+     }
     if (response.status == 200) {
-      return NextResponse.next();
+      return NextCustomResponse;
     } else {
       return NextResponse.redirect(new URL("/login", req.url));
     }

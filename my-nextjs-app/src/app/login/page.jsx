@@ -2,6 +2,7 @@
 import React, { useState, useContext } from "react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import { getCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
 import { UserContext } from "@/context/UserProvider";
 
@@ -22,7 +23,7 @@ const LoginForm = () => {
 
       if (response.status === 200 || response.status === 201) {
         console.log(response.data);
-        setUserDetails(response?.data?.data ?? null);
+        setUserDetails(getCookie("sessionDetails"));
         toast.success("Login successful!");
         router.push("/dashboard");
       }

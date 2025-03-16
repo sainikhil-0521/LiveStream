@@ -2,9 +2,10 @@ import axios from "axios";
 
 export async function POST(req, { params }) {
   const { action } = await params;
-  if (action == "login" || action == "signup") {
+  if (action == "login" || action == "signup" || action == "logout") {
     try {
-      const backendUrl = `http://localhost:8080/v1/auth/${action}`;
+      console.log(action)
+      const backendUrl = 'http://localhost:8080/v1/auth/' + action;
       const response = await axios({
         url: backendUrl,
         method: "POST",
